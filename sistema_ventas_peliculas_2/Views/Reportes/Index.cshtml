@@ -1,0 +1,221 @@
+﻿@model System.Data.DataSet
+
+@{
+    ViewBag.Title = "Data Overview";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Data from Multiple Tables</h2>
+<!-- Mostrar el nombre del usuario autenticado -->
+@if (ViewBag.NombreUsuario != null)
+{
+    <p class="alert alert-info">Bienvenido, @ViewBag.NombreUsuario</p>
+    <button class="btn btn-warning" onclick="cerrarSesion()">Cerrar sesión</button>
+}
+else if (Session["NombreUsuario"] != null)
+{
+    <p class="alert alert-info">Bienvenido, @Session["NombreUsuario"]</p>
+
+}
+
+<!-- Print Button -->
+<button onclick="window.print()" class="btn btn-secondary mb-3">Imprimir</button>
+
+<h3>Almacen</h3>
+<table class="table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Peliculas ID</th>
+            <th>Cantidad Disponible</th>
+            <th>Ubicación</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Tables["Almacen"].Rows)
+        {
+            <tr>
+                <td>@row["IdAlmacen"]</td>
+                <td>@row["IdPeliculas"]</td>
+                <td>@row["CantidadDisponible"]</td>
+                <td>@row["Ubicacion"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<canvas id="almacenChart" width="400" height="150"></canvas>
+
+<h3>Compras</h3>
+<table class="table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Usuario ID</th>
+            <th>Pelicula ID</th>
+            <th>Fecha Compra</th>
+            <th>Estado Pago</th>
+            <th>Cantidad Comprada</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Tables["Compras"].Rows)
+        {
+            <tr>
+                <td>@row["IdCompras"]</td>
+                <td>@row["UsuarioId"]</td>
+                <td>@row["IdPeliculas"]</td>
+                <td>@row["FechaCompra"]</td>
+                <td>@row["EstadoPago"]</td>
+                <td>@row["CantidadComprada"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<canvas id="comprasChart" width="400" height="150"></canvas>
+
+<h3>Peliculas</h3>
+<table class="table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Título</th>
+            <th>Género</th>
+            <th>Director</th>
+            <th>Descripción</th>
+            <th>Precio</th>
+            <th>Disponibilidad</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Tables["Peliculas"].Rows)
+        {
+            <tr>
+                <td>@row["IdPeliculas"]</td>
+                <td>@row["Titulo"]</td>
+                <td>@row["Genero"]</td>
+                <td>@row["Director"]</td>
+                <td>@row["Descripcion"]</td>
+                <td>@row["Precio"]</td>
+                <td>@(row["Disponibilidad"].Equals(true) ? "Disponible" : "No Disponible")</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<canvas id="peliculasChart" width="400" height="150"></canvas>
+
+<h3>Usuarios</h3>
+<table class="table" style="max-width: 600px;">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre Usuario</th>
+            <th>Correo Electrónico</th>
+            <th>Rol</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (System.Data.DataRow row in Model.Tables["Usuarios"].Rows)
+        {
+            <tr>
+                <td>@row["IdUsuarios"]</td>
+                <td>@row["NombreUsuario"]</td>
+                <td>@row["CorreoElectronico"]</td>
+                <td>@row["Rol"]</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<canvas id="usuariosChart" width="400" height="150"></canvas>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Almacen Chart
+        const almacenCtx = document.getElementById('almacenChart').getContext('2d');
+        new Chart(almacenCtx, {
+            type: 'bar',
+            data: {
+                labels: [...Array(@Model.Tables["Almacen"].Rows.Count).keys()].map(i => `Almacen ${i + 1}`),
+                datasets: [{
+                    label: 'Cantidad Disponible',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Tables["Almacen"].Rows.OfType<System.Data.DataRow>().Select(row => (int)row["CantidadDisponible"]))),
+                    backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                    borderColor: 'rgba(75, 192, 192, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Compras Chart
+        const comprasCtx = document.getElementById('comprasChart').getContext('2d');
+        new Chart(comprasCtx, {
+            type: 'line',
+            data: {
+                labels: [...Array(@Model.Tables["Compras"].Rows.Count).keys()].map(i => `Compra ${i + 1}`),
+                datasets: [{
+                    label: 'Cantidad Comprada',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Tables["Compras"].Rows.OfType<System.Data.DataRow>().Select(row => (int)row["CantidadComprada"]))),
+                    backgroundColor: 'rgba(153, 102, 255, 0.2)',
+                    borderColor: 'rgba(153, 102, 255, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Peliculas Chart
+        const peliculasCtx = document.getElementById('peliculasChart').getContext('2d');
+        new Chart(peliculasCtx, {
+            type: 'pie',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Tables["Peliculas"].Rows.OfType<System.Data.DataRow>().Select(row => (string)row["Titulo"]))),
+                datasets: [{
+                    label: 'Precio',
+                    data: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Tables["Peliculas"].Rows.OfType<System.Data.DataRow>().Select(row => (decimal)row["Precio"]))),
+                    backgroundColor: 'rgba(255, 159, 64, 0.2)',
+                    borderColor: 'rgba(255, 159, 64, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+
+        // Usuarios Chart
+        const usuariosCtx = document.getElementById('usuariosChart').getContext('2d');
+        new Chart(usuariosCtx, {
+            type: 'bar',
+            data: {
+                labels: @Html.Raw(Newtonsoft.Json.JsonConvert.SerializeObject(Model.Tables["Usuarios"].Rows.OfType<System.Data.DataRow>().Select(row => (string)row["NombreUsuario"]))),
+                datasets: [{
+                    label: 'Usuarios',
+                    data: Array(@Model.Tables["Usuarios"].Rows.Count).fill(1), // Dummy data just to show user count
+                    backgroundColor: 'rgba(255, 206, 86, 0.2)',
+                    borderColor: 'rgba(255, 206, 86, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+    </script>
+}

@@ -1,0 +1,91 @@
+﻿@{
+    bool isUserLoggedIn = User.Identity.IsAuthenticated;
+    string userName = User.Identity.IsAuthenticated ? User.Identity.Name : "";
+    string userRole = Session["Rol"]?.ToString(); // Obtener rol desde la sesión
+    bool isInvitadoPage = Request.Path.Equals("/Pelicula/Invitado", StringComparison.OrdinalIgnoreCase);
+    bool isAdmin = userRole == "Administrador";
+    bool isUsuario = userRole == "Usuario";
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    @if (!isInvitadoPage) // Mostrar menú si no es página de invitado
+    {
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark">
+            <div class="container">
+                <ul class="navbar-nav flex-grow-1">
+                    @if (!isUsuario != isAdmin) // Mostrar opciones para invitado
+                    {
+                        <li>@Html.ActionLink("Sistema De Venta Peliculas", "Invitado", "Pelicula", null, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Pelicula", "Invitado", "Pelicula", null, new { @class = "nav-link" })</li>
+                    }
+                    @if (isUsuario) // Mostrar opciones para usuarios
+                    {
+                        <li>@Html.ActionLink("Sistema De Venta Peliculas", "Index", "Pelicula", null, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Pelicula", "Index", "Pelicula", null, new { @class = "nav-link" })</li>
+                    }
+                    @if (isAdmin) // Mostrar opciones para administrador
+                    {
+                        <li>@Html.ActionLink("Sistema De Venta Peliculas", "Index", "Pelicula", null, new { @class = "navbar-brand" })</li>
+                        <li>@Html.ActionLink("Pelicula", "Index", "Pelicula", null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Almacenes", "Index", "Almacen", null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Usuarios", "Index", "Usuario", null, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Reportes", "Index", "Reportes", null, new { @class = "nav-link" })</li>
+                    }
+                </ul>
+
+                @if (isUserLoggedIn) // Mostrar botón de cerrar sesión si está logueado
+                {
+                    <button class="btn btn-warning" onclick="cerrarSesion()">Cerrar sesión (@userName)</button>
+                }
+                else // Mostrar enlace de inicio de sesión si no está logueado
+                {
+                    @Html.ActionLink("Iniciar sesión", "Login", "Usuario", null, new { @class = "btn btn-success" })
+                }
+            </div>
+        </nav>
+    }
+
+    <div class="container">
+        @RenderBody()
+        <hr />
+        <footer>
+            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
+        </footer>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function cerrarSesion() {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: '¡Tu sesión será cerrada!',
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, cerrar sesión'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    window.location.href = '@Url.Action("Salir", "Usuario")';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
+
+
+
+

@@ -1,0 +1,87 @@
+10/24/2024 10:23:09 AM	This log contains information about the import schema operation into project 'Database1' on computer 'ONA-DTC-DIS-19' by user 'braulio.jewel'.
+10/24/2024 10:23:10 AM	Import of database schema has started.
+10/24/2024 10:23:14 AM	Gathering database credentials
+10/24/2024 10:23:14 AM	Gathering database options
+10/24/2024 10:23:14 AM	Gathering generic database scoped configuration option
+10/24/2024 10:23:14 AM	Gathering users
+10/24/2024 10:23:14 AM	Gathering roles
+10/24/2024 10:23:14 AM	Gathering application roles
+10/24/2024 10:23:14 AM	Gathering role memberships
+10/24/2024 10:23:14 AM	Gathering filegroups
+10/24/2024 10:23:14 AM	Gathering full-text catalogs
+10/24/2024 10:23:14 AM	Gathering assemblies
+10/24/2024 10:23:14 AM	Gathering certificates
+10/24/2024 10:23:14 AM	Gathering asymmetric keys
+10/24/2024 10:23:14 AM	Gathering symmetric keys
+10/24/2024 10:23:14 AM	Gathering encrypted symmetric keys
+10/24/2024 10:23:14 AM	Gathering schemas
+10/24/2024 10:23:14 AM	Gathering XML schema collections
+10/24/2024 10:23:14 AM	Gathering user-defined data types
+10/24/2024 10:23:14 AM	Gathering user-defined types
+10/24/2024 10:23:14 AM	Gathering table types
+10/24/2024 10:23:14 AM	Gathering unique keys for table types
+10/24/2024 10:23:14 AM	Gathering primary keys for table types
+10/24/2024 10:23:14 AM	Gathering indexes for table types
+10/24/2024 10:23:14 AM	Gathering check constraints for table types
+10/24/2024 10:23:14 AM	Gathering default constraints for table types
+10/24/2024 10:23:14 AM	Gathering partition functions
+10/24/2024 10:23:14 AM	Gathering partition schemes
+10/24/2024 10:23:14 AM	Gathering functions
+10/24/2024 10:23:14 AM	Gathering encrypted functions
+10/24/2024 10:23:14 AM	Gathering aggregates
+10/24/2024 10:23:14 AM	Gathering procedures
+10/24/2024 10:23:14 AM	Gathering encrypted procedures
+10/24/2024 10:23:14 AM	Gathering tables
+10/24/2024 10:23:14 AM	Gathering primary keys
+10/24/2024 10:23:14 AM	Gathering unique constraints
+10/24/2024 10:23:14 AM	Gathering foreign keys
+10/24/2024 10:23:14 AM	Gathering default constraints
+10/24/2024 10:23:14 AM	Gathering check constraints
+10/24/2024 10:23:14 AM	Gathering views
+10/24/2024 10:23:14 AM	Gathering encrypted views
+10/24/2024 10:23:14 AM	Gathering indexes
+10/24/2024 10:23:14 AM	Gathering statistics
+10/24/2024 10:23:14 AM	Gathering full-text index stoplists
+10/24/2024 10:23:14 AM	Gathering search property lists
+10/24/2024 10:23:14 AM	Gathering search properties
+10/24/2024 10:23:14 AM	Gathering full-text indexes
+10/24/2024 10:23:14 AM	Gathering column store indexes
+10/24/2024 10:23:14 AM	Gathering spatial indexes
+10/24/2024 10:23:14 AM	Gathering XML indexes
+10/24/2024 10:23:14 AM	Gathering Selective XML indexes
+10/24/2024 10:23:14 AM	Gathering encrypted triggers
+10/24/2024 10:23:15 AM	Gathering triggers
+10/24/2024 10:23:15 AM	Gathering encrypted and clr ddl triggers
+10/24/2024 10:23:15 AM	Gathering ddl triggers
+10/24/2024 10:23:15 AM	Creating edge constraints
+10/24/2024 10:23:15 AM	Gathering synonyms
+10/24/2024 10:23:15 AM	Gathering defaults
+10/24/2024 10:23:15 AM	Gathering data constraint uddt bindings
+10/24/2024 10:23:15 AM	Gathering rules
+10/24/2024 10:23:15 AM	Gathering data constraint uddt bindings
+10/24/2024 10:23:15 AM	Gathering message types
+10/24/2024 10:23:15 AM	Gathering queues
+10/24/2024 10:23:15 AM	Gathering contracts
+10/24/2024 10:23:15 AM	Gathering services
+10/24/2024 10:23:15 AM	Gathering event notifications
+10/24/2024 10:23:15 AM	Gathering remote service bindings
+10/24/2024 10:23:15 AM	Gathering broker priorities
+10/24/2024 10:23:15 AM	Gathering signatures
+10/24/2024 10:23:15 AM	Gathering compression options
+10/24/2024 10:23:15 AM	Gathering sequence types
+10/24/2024 10:23:15 AM	Gathering security policies
+10/24/2024 10:23:15 AM	Gather column encryption keys
+10/24/2024 10:23:15 AM	Gathering column master keys
+10/24/2024 10:23:15 AM	Gathering external data sources
+10/24/2024 10:23:15 AM	Gathering external file formats
+10/24/2024 10:23:15 AM	Gathering external tables
+10/24/2024 10:23:15 AM	Gathering extended properties
+10/24/2024 10:23:15 AM	Gathering assemblies
+10/24/2024 10:23:15 AM	Gathering credentials
+10/24/2024 10:23:15 AM	Gathering logins
+10/24/2024 10:23:15 AM	Gathering server audits
+10/24/2024 10:23:15 AM	Scanning project for duplicate elements
+10/24/2024 10:23:15 AM	Finished duplicate element processing
+10/24/2024 10:23:15 AM	Finished importing database.
+10/24/2024 10:23:15 AM	A summary of the import was saved to the following location: C:\Users\braulio.jewel\source\repos\sistema_ventas_peliculas_2\Database1\Import Schema Logs\Database1_20241024022309.log
+10/24/2024 10:23:15 AM	Click Finish to continue...

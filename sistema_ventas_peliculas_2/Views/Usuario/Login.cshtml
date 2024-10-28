@@ -1,0 +1,108 @@
+﻿@model sistema_ventas_peliculas_2.Models.Usuarios
+
+@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Asegúrate de tener este layout.
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        <form action="@Url.Action("Login", "Usuario")" method="post" id="loginForm">
+            <div class="form-group mb-3">
+                <label for="User">Nombre de Usuario</label>
+                <input type="text" name="User" class="form-control" placeholder="Ingresa tu usuario" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Pass">Contraseña</label>
+                <input type="password" name="Pass" class="form-control" placeholder="Ingresa tu contraseña" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="Rol">Rol</label>
+                <select name="Rol" class="form-control" required>
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    @foreach (SelectListItem role in (IEnumerable<SelectListItem>)ViewBag.Roles)
+                    {
+                        <option value="@role.Value">@role.Text</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group text-center mb-3">
+                <button type="submit" class="btn btn-primary w-100">Entrar</button>
+            </div>
+
+            <div class="form-group text-center">
+                <p>¿No tienes una cuenta?</p>
+            </div>
+        </form>
+        <a href="@Url.Action("Registro", "Usuario")" class="btn btn-secondary w-100">Registrarse</a>
+    </div>
+</div>
+
+
+
+
+
+
+@*<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Iniciar Sesión</h2>
+
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        @using (Html.BeginForm("Login", "Usuario", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-4 col-form-label">Rol</label>
+                <div class="col-sm-8">
+                    @Html.DropDownListFor(
+                        model => model.Rol,
+                        new SelectList(new List<string> { "Administrador", "Usuario", "Invitado" }),
+                        "Selecciona Un Rol",
+                        new { @class = "form-control" }
+                    )
+                    @Html.ValidationMessageFor(model => model.Rol, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-4 col-form-label">Nombre Usuario</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.NombreUsuario, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.NombreUsuario, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group row mb-3">
+                <label class="col-sm-4 col-form-label">Contraseña</label>
+                <div class="col-sm-8">
+                    @Html.EditorFor(model => model.Contrasena, new { htmlAttributes = new { @class = "form-control", type = "password" } })
+                    @Html.ValidationMessageFor(model => model.Contrasena, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary">Iniciar Sesión</button>
+            </div>
+        }
+    </div>*@

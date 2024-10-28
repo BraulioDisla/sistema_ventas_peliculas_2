@@ -1,0 +1,59 @@
+﻿@model sistema_ventas_peliculas_2.Models.Usuarios
+
+@{
+    ViewBag.Title = "Registro de Usuario";
+   
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="d-flex justify-content-center align-items-center vh-100">
+    <div class="card p-4" style="width: 400px;">
+        <h2 class="text-center mb-4">Registro de Usuario</h2>
+
+        @if (!string.IsNullOrEmpty(ViewBag.ErrorMessage))
+        {
+            <div class="alert alert-danger">
+                @ViewBag.ErrorMessage
+            </div>
+        }
+
+        @if (!string.IsNullOrEmpty(ViewBag.SuccessMessage))
+        {
+            <div class="alert alert-success">
+                @ViewBag.SuccessMessage
+            </div>
+        }
+
+        <form action="@Url.Action("Registro", "Usuario")" method="post">
+            <div class="form-group mb-3">
+                <label for="NombreUsuario">Nombre de Usuario</label>
+                <input type="text" name="NombreUsuario" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="CorreoElectronico">Correo Electrónico</label>
+                <input type="email" name="CorreoElectronico" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-3">
+                <label for="Contrasena">Contraseña</label>
+                <input type="password" name="Contrasena" class="form-control" required />
+            </div>
+
+            <div class="form-group mb-4">
+                <label for="Rol">Rol</label>
+                <select name="Rol" class="form-control" required>
+                    <option value="" disabled selected>Selecciona un rol</option>
+                    @foreach (var role in ViewBag.Roles as SelectList)
+                    {
+                        <option value="@role.Text">@role.Text</option>
+                    }
+                </select>
+            </div>
+
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary w-100">Registrar</button>
+            </div>
+        </form>
+    </div>
+</div>

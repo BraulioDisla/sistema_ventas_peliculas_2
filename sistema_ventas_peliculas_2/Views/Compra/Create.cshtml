@@ -1,0 +1,57 @@
+﻿@model sistema_ventas_peliculas_2.Models.Compras
+
+<h2>Compra Película</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div id="message" class="alert alert-warning">
+        @TempData["Message"]
+    </div>
+
+    // Limpia el TempData después de mostrar el mensaje
+    @TempData.Remove("Message");
+}
+
+@using (Html.BeginForm("Create", "Compra", FormMethod.Post))
+{
+    <div class="form-group">
+        @Html.LabelFor(model => model.CantidadComprada, "Cantidad a Comprar")
+        @Html.TextBoxFor(model => model.CantidadComprada, new { @class = "form-control" })
+    </div>
+    <input type="hidden" name="IdPeliculas" value="@Model.IdPeliculas" />
+
+    <button type="submit" class="btn btn-primary">Comprar</button>
+
+
+}
+@*<script>
+        setTimeout(function () {
+            var messageDiv = document.getElementById("message");
+            if (messageDiv) {
+                messageDiv.style.display = 'none';
+            }
+        }, 3000); // Hide the message after 3 seconds
+    </script>*@
+<!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+    Launch demo modal
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                ...
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

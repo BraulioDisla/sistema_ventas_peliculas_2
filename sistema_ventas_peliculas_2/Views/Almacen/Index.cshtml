@@ -1,0 +1,88 @@
+﻿@model IEnumerable<sistema_ventas_peliculas_2.Models.Almacen>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<!-- Mostrar el nombre del usuario autenticado -->
+@if (ViewBag.NombreUsuario != null)
+{
+    <p class="alert alert-info">Bienvenido, @ViewBag.NombreUsuario</p>
+    <button class="btn btn-warning" onclick="cerrarSesion()">Cerrar sesión</button>
+}
+else if (Session["NombreUsuario"] != null)
+{
+    <p class="alert alert-info">Bienvenido, @Session["NombreUsuario"]</p>
+    
+}
+
+<p>
+    @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success" })
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Genero)</th>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Director)</th>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Precio)</th>
+            <th>@Html.DisplayNameFor(model => model.Peliculas.Disponibilidad)</th>
+            <th>@Html.DisplayNameFor(model => model.CantidadDisponible)</th>
+            <th>@Html.DisplayNameFor(model => model.Ubicacion)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Peliculas.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Peliculas.Genero)</td>
+                <td>@Html.DisplayFor(modelItem => item.Peliculas.Director)</td>
+                <td>@Html.DisplayFor(modelItem => item.Peliculas.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.Peliculas.Precio)</td>
+                <td>
+                    <span class="btn @(item.Peliculas.Disponibilidad ? "btn-success" : "btn-danger")">
+                        @(item.Peliculas.Disponibilidad ? "Disponible" : "No Disponible")
+                    </span>
+                </td>
+                <td>@Html.DisplayFor(modelItem => item.CantidadDisponible)</td>
+                <td>@Html.DisplayFor(modelItem => item.Ubicacion)</td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.IdAlmacen }, new { @class = "btn btn-warning " })
+                    @Html.ActionLink("Details", "Details", new { id = item.IdAlmacen }, new { @class = "btn btn-info  " })
+                    @Html.ActionLink("Delete", "Delete", new { id = item.IdAlmacen }, new { @class = "btn btn-danger " })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Referencia a SweetAlert desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    // Función para cerrar sesión usando SweetAlert
+    function cerrarSesion() {
+        Swal.fire({
+            title: '¿Estás seguro?',
+            text: "¡Tu sesión será cerrada!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Sí, cerrar sesión'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirige al método Salir del controlador Usuario
+                window.location.href = '@Url.Action("Salir", "Usuario")';
+            }
+        });
+    }
+</script>
+
+

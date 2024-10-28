@@ -1,0 +1,56 @@
+﻿@model IEnumerable<sistema_ventas_peliculas_2.Models.Usuarios>
+@{
+    ViewBag.Title = "Iniciar Sesión";
+    Layout = "~/Views/Shared/_Layout.cshtml";  // Asegúrate de tener este layout.
+}
+<h2>Lista de Usuarios</h2>
+<!-- Mostrar el nombre del usuario autenticado -->
+@if (ViewBag.NombreUsuario != null)
+{
+    <p class="alert alert-info">Bienvenido, @ViewBag.NombreUsuario</p>
+    <button class="btn btn-warning" onclick="cerrarSesion()">Cerrar sesión</button>
+}
+else if (Session["NombreUsuario"] != null)
+{
+    <p class="alert alert-info">Bienvenido, @Session["NombreUsuario"]</p>
+
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @if (Model != null && Model.Any())
+        {
+            foreach (var usuario in Model)
+            {
+                <tr>
+                    <td>@usuario.IdUsuarios</td>
+                    <td>@usuario.NombreUsuario</td>
+                    <td>@usuario.CorreoElectronico</td>
+                    <td>@usuario.Rol</td>
+                    <td>
+                        @Html.ActionLink("Editar", "Edit", new { id = usuario.IdUsuarios }, new { @class = "btn btn-warning" })
+                        @Html.ActionLink("Eliminar", "Delete", new { id = usuario.IdUsuarios }, new { @class = "btn btn-danger" })
+                    </td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <td colspan="5" class="text-center">No hay usuarios disponibles.</td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@Html.ActionLink("Crear Nuevo Usuario", "Create", null, new { @class = "btn btn-primary" })
+

@@ -1,0 +1,130 @@
+﻿@model sistema_ventas_peliculas_2.Models.Almacen
+
+@{
+    ViewBag.Title = "Editar Almacen";
+}
+
+<h2>Editar Almacen</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+<div class="form-horizontal">
+    <h4>Detalles del Almacen</h4>
+    <hr />
+
+    <!-- Campo para IdAlmacen (solo lectura) -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdAlmacen, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IdAlmacen, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.IdAlmacen, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para CantidadDisponible -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.CantidadDisponible, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.CantidadDisponible, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.CantidadDisponible, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para Ubicacion -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Ubicacion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Ubicacion, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Ubicacion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <h4>Detalles de la Pelicula</h4>
+    <hr />
+    <!-- Campo para IdPeliculas (solo lectura) -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.IdPeliculas, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.IdPeliculas, new { htmlAttributes = new { @class = "form-control", @readonly = "readonly" } })
+            @Html.ValidationMessageFor(model => model.IdPeliculas, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!-- Campo para Titulo -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Titulo, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Peliculas.Titulo, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Peliculas.Titulo, "", new { @class = "text-danger" })
+        </div>
+    </div>
+    <!-- Campo para Genero -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Genero, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Peliculas.Genero, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Peliculas.Genero, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para Director -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Director, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Peliculas.Director, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Peliculas.Director, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para Descripcion -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(model => model.Peliculas.Descripcion, new { @class = "form-control", rows = 5 })
+            @Html.ValidationMessageFor(model => model.Peliculas.Descripcion, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para Precio -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Precio, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.EditorFor(model => model.Peliculas.Precio, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.ValidationMessageFor(model => model.Peliculas.Precio, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+    <!-- Campo para Disponibilidad -->
+    <div class="form-group">
+        @Html.LabelFor(model => model.Peliculas.Disponibilidad, htmlAttributes: new { @class = "control-label col-md-2" })
+        <div class="col-md-10">
+            @Html.DropDownListFor(model => model.Peliculas.Disponibilidad,
+                new SelectList(new List<SelectListItem>
+                {
+                    new SelectListItem { Text = "Disponible", Value = "true" },
+                    new SelectListItem { Text = "No Disponible", Value = "false" }
+                }, "Value", "Text", Model.Peliculas.Disponibilidad),
+                "Selecciona una opción",
+                new { @class = "form-control" })
+            @Html.ValidationMessageFor(model => model.Peliculas.Disponibilidad, "", new { @class = "text-danger" })
+        </div>
+    </div>
+
+
+    <!-- Botones para guardar o cancelar -->
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" value="Guardar" class="btn btn-primary" />
+            @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-default" })
+        </div>
+    </div>
+</div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

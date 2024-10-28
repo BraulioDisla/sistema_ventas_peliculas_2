@@ -1,0 +1,33 @@
+﻿@model sistema_ventas_peliculas_2.Models.Usuarios
+
+@{
+    ViewBag.Title = "Editar Usuario";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Editar Usuario</h2>
+
+@using (Html.BeginForm("Edit", "Usuario", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.IdUsuarios)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.NombreUsuario)
+        @Html.TextBoxFor(model => model.NombreUsuario, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.CorreoElectronico)
+        @Html.TextBoxFor(model => model.CorreoElectronico, new { @class = "form-control" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Rol)
+        @Html.DropDownListFor(model => model.Rol, (SelectList)ViewBag.Roles, "Selecciona un Rol", new { @class = "form-control" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-secondary" })
+}

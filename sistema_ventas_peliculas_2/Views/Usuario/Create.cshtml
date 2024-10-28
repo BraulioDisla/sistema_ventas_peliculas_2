@@ -1,0 +1,36 @@
+﻿@model sistema_ventas_peliculas_2.Models.Usuarios
+
+<h2>Crear Nuevo Usuario</h2>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.NombreUsuario)
+        @Html.TextBoxFor(m => m.NombreUsuario, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.NombreUsuario)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.CorreoElectronico)
+        @Html.TextBoxFor(m => m.CorreoElectronico, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.CorreoElectronico)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Contrasena)
+        @Html.PasswordFor(m => m.Contrasena, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Contrasena)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Rol)
+        @Html.DropDownListFor(m => m.Rol, (SelectList)ViewBag.Roles, "Seleccione un rol", new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Rol)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Crear Usuario</button>
+    @Html.ActionLink("Volver a la lista", "Index", null, new { @class = "btn btn-secondary" })
+}
+

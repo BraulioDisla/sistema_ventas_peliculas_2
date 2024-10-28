@@ -1,0 +1,128 @@
+﻿@*@model IEnumerable<sistema_ventas_peliculas_2.Models.PeliculasyAlmacen>
+
+    @{
+        ViewBag.Title = "Lista De Películas";
+    }
+
+    <h2>Lista De Películas</h2>
+
+
+    @if (TempData["Message"] != null)
+    {
+        string tipoAlerta = TempData["MessageType"] as string ?? "success";
+        <div id="message" class="alert alert-@tipoAlerta">
+            @TempData["Message"]
+        </div>
+    }
+
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+                <th>@Html.DisplayNameFor(model => model.Genero)</th>
+                <th>@Html.DisplayNameFor(model => model.Director)</th>
+                <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+                <th>@Html.DisplayNameFor(model => model.Precio)</th>
+                <th>Cantidad Disponible</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Genero)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Director)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                    <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                    <td>@Html.DisplayFor(modelItem => item.CantidadDisponible)</td>
+                    <td>
+                        <button type="button" class="btn btn-success" data-bs-toggle="modal"
+                                data-bs-target="#modalCompra"
+                                onclick="cargarDatosCompra(@item.IdPeliculas, '@item.Titulo')"
+                                disabled>
+                            Comprar
+                        </button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>*@
+@model IEnumerable<sistema_ventas_peliculas_2.Models.PeliculasyAlmacen>
+
+@{
+    ViewBag.Title = "Lista De Películas";
+}
+
+<h2>Lista De Películas</h2>
+
+@if (TempData["Message"] != null)
+{
+    string tipoAlerta = TempData["MessageType"] as string ?? "success";
+    <div id="message" class="alert alert-@tipoAlerta">
+        @TempData["Message"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>@Html.DisplayNameFor(model => model.Titulo)</th>
+            <th>@Html.DisplayNameFor(model => model.Genero)</th>
+            <th>@Html.DisplayNameFor(model => model.Director)</th>
+            <th>@Html.DisplayNameFor(model => model.Descripcion)</th>
+            <th>@Html.DisplayNameFor(model => model.Precio)</th>
+            <th>Cantidad Disponible</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(modelItem => item.Titulo)</td>
+                <td>@Html.DisplayFor(modelItem => item.Genero)</td>
+                <td>@Html.DisplayFor(modelItem => item.Director)</td>
+                <td>@Html.DisplayFor(modelItem => item.Descripcion)</td>
+                <td>@Html.DisplayFor(modelItem => item.Precio)</td>
+                <td>@Html.DisplayFor(modelItem => item.CantidadDisponible)</td>
+                <td>
+                    <button type="button" class="btn btn-success"
+                            onclick="mostrarAlertaLogin()">
+                        Comprar
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Agregar SweetAlert desde CDN -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function mostrarAlertaLogin() {
+        // Mostrar alerta con SweetAlert
+        Swal.fire({
+            title: 'Autenticación Requerida',
+            text: "Debes iniciar sesión para realizar una compra.",
+            icon: 'info',
+            showCancelButton: true,
+            confirmButtonText: 'Iniciar sesión',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirigir a la página de login
+                window.location.href = '@Url.Action("Login", "Usuario")';
+            }
+        });
+    }
+</script>
+
+
+
+
+
+
